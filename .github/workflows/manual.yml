@@ -20,8 +20,8 @@ on:
 
         
       reviewdog_version:
-      description: 'reviewdog version. [latest,nightly,vX.Y.Z]'
-      default: 'latest'
+        description: 'reviewdog version. [latest,nightly,vX.Y.Z]'
+        default: 'latest'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
