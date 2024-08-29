@@ -20,6 +20,13 @@ jobs:
       
     - uses: reviewdog/action-setup@v1
     - run: reviewdog -version
+    - name: Check out code.
+      uses: actions/checkout@v1
+        
+    - name: misspell
+      uses: reviewdog/action-misspell@v1
+      with:
+        github_token: ${{ secrets.github_token }}
     
     - name: Run reviewdog
       env:
