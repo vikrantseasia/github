@@ -1,6 +1,6 @@
 name: Review Dog
 on: [pull_request]
-permissions: read-all
+permissions: write-all
 jobs:
   eslint:
     name: Sniffing code
