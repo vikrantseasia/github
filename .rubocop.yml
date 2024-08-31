@@ -1,0 +1,181 @@
+inherit_mode:
+  merge:
+    - Exclude
+
+AllCops:
+  DisabledByDefault: true
+  Exclude:
+    - db/schema.rb
+
+require:
+  - rubocop-rails
+
+# Naming
+
+Naming/PredicateName:
+  Description: "Check the names of predicate methods."
+  StyleGuide: "https://github.com/bbatsov/ruby-style-guide#bool-methods-qmark"
+  ForbiddenPrefixes:
+    - is_
+  Exclude:
+    - spec/**/*
+
+# Style
+
+Style/ClassAndModuleChildren:
+  Description: "Checks style of children classes and modules."
+  Enabled: true
+  EnforcedStyle: nested
+
+Style/CollectionMethods:
+  Enabled: true
+  PreferredMethods:
+    find: detect
+    inject: reduce
+    collect: map
+    find_all: select
+
+Style/ParallelAssignment:
+  Enabled: true
+
+# Rails
+
+Rails/ActionOrder:
+  Enabled: true
+  Description: "Enforce consistent ordering of controller actions."
+  ExpectedOrder:
+    - index
+    - show
+    - new
+    - edit
+    - create
+    - update
+    - destroy
+  Include:
+    - app/controllers/**/*.rb
+
+Rails/ActiveSupportOnLoad:
+  Enabled: true
+  Description: "Use `ActiveSupport.on_load(...)` to patch Rails framework classes."
+  Reference:
+    - "https://api.rubyonrails.org/classes/ActiveSupport/LazyLoadHooks.html"
+    - "https://guides.rubyonrails.org/engines.html#available-load-hooks"
+
+Rails/AddColumnIndex:
+  Enabled: true
+  Description: >-
+    Rails migrations don't make use of a given `index` key, but also
+    doesn't given an error when it's used, so it makes it seem like an
+    index might be used.
+  Include:
+    - db/migrate/*.rb
+
+Rails/AfterCommitOverride:
+  Enabled: true
+  Description: >-
+    Enforces that there is only one call to `after_commit`
+    (and its aliases - `after_create_commit`, `after_update_commit`,
+    and `after_destroy_commit`) with the same callback name per model.
+
+Rails/ArelStar:
+  Enabled: true
+  Description: 'Enforces `Arel.star` instead of `"*"` for expanded columns.'
+
+Rails/DefaultScope:
+  Enabled: true
+  Description: "Avoid use of `default_scope`."
+  StyleGuide: "https://rails.rubystyle.guide#avoid-default-scope"
+
+Rails/DuplicateScope:
+  Enabled: true
+  Description: "Multiple scopes share this same where clause."
+
+Rails/EnumHash:
+  Enabled: true
+  Description: "Prefer hash syntax over array syntax when defining enums."
+  StyleGuide: "https://rails.rubystyle.guide#enums"
+  Include:
+    - app/models/**/*.rb
+
+Rails/EnumUniqueness:
+  Enabled: true
+  Description: "Avoid duplicate integers in hash-syntax `enum` declaration."
+  Include:
+    - app/models/**/*.rb
+
+Rails/ExpandedDateRange:
+  Enabled: true
+  Description: "Checks for expanded date range."
+  StyleGuide: "https://rails.rubystyle.guide/#date-time-range"
+
+Rails/LexicallyScopedActionFilter:
+  Enabled: true
+  Description: "Checks that methods specified in the filter's `only` or `except` options are explicitly defined in the class."
+  StyleGuide: "https://rails.rubystyle.guide#lexically-scoped-action-filter"
+  Include:
+    - app/controllers/**/*.rb
+    - app/mailers/**/*.rb
+
+Rails/LinkToBlank:
+  Enabled: true
+  Description: 'Checks that `link_to` with a `target: "_blank"` have a `rel: "noopener"` option passed to them.'
+  Reference:
+    - https://mathiasbynens.github.io/rel-noopener/
+    - https://html.spec.whatwg.org/multipage/links.html#link-type-noopener
+    - https://html.spec.whatwg.org/multipage/links.html#link-type-noreferrer
+
+Rails/MailerName:
+  Enabled: true
+  Description: "Mailer should end with `Mailer` suffix."
+  StyleGuide: "https://rails.rubystyle.guide/#mailer-name"
+  Include:
+    - app/mailers/**/*.rb
+
+Rails/MigrationClassName:
+  Enabled: true
+  Description: "The class name of the migration should match its file name."
+  Include:
+    - db/migrate/*.rb
+
+Rails/Presence:
+  Enabled: true
+  Description: "Checks code that can be written more easily using `Object#presence` defined by Active Support."
+
+Rails/SaveBang:
+  Enabled: true
+  Description: "Identifies possible cases where Active Record save! or related should be used."
+  StyleGuide: "https://rails.rubystyle.guide#save-bang"
+  AllowImplicitReturn: true
+  AllowedReceivers: []
+
+Rails/TimeZone:
+  Enabled: true
+  Description: "Checks the correct usage of time zone aware methods."
+  StyleGuide: "https://rails.rubystyle.guide#time"
+  Reference: "http://danilenko.org/2012/7/6/rails_timezones"
+  # The value `strict` means that `Time` should be used with `zone`.
+  # The value `flexible` allows usage of `in_time_zone` instead of `zone`.
+  EnforcedStyle: flexible
+  Exclude:
+    - "**/*.gemspec"
+
+Rails/ToSWithArgument:
+  Enabled: true
+  Description: "Identifies passing any argument to `#to_s`."
+
+Rails/TransactionExitStatement:
+  Enabled: true
+  Description: "Avoid the usage of `return`, `break` and `throw` in transaction blocks."
+  Reference:
+    - https://github.com/rails/rails/commit/15aa4200e083
+
+Rails/UniqueValidationWithoutIndex:
+  Enabled: true
+  Description: "Uniqueness validation should have a unique index on the database column."
+  Include:
+    - app/models/**/*.rb
+
+Rails/Validation:
+  Enabled: true
+  Include:
+    - app/models/**/*.rb
