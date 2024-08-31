@@ -1,0 +1,20 @@
+runner:
+  standardrb:
+    cmd: bundle exec standardrb
+    format: rubocop
+    level: error
+
+  rubocop:
+    cmd: bundle exec rubocop
+    format: rubocop
+    level: error
+
+  erblint:
+    cmd: bundle exec erblint --lint-all --format compact
+    format: erb-lint
+    level: error
+
+  brakeman:
+    cmd: bundle exec brakeman --quiet --format tabs
+    format: brakeman
+    level: warning
